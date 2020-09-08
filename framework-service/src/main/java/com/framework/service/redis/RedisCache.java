@@ -166,6 +166,12 @@ public class RedisCache {
         return num;
     }
 
+    // 计数器自增（-1），并返回计算前的原值
+    public long getAndDecrement(String key) {
+        RAtomicLong atomicLong = redisson.getAtomicLong(key);
+        return atomicLong.getAndDecrement();
+    }
+
     // 计数器累加指定的值，并返回计算前的原值
     // 如果key不存在则按当前值为0计算
     public long getAndIncrement(String key, long delta, long expired) {
